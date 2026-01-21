@@ -4,9 +4,21 @@ import type { PixabayImage } from "./types/pixabay";
 import "izitoast/dist/css/iziToast.min.css";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-type RenderAPI = {};
+type RenderAPI = {
+  createGallery: (images: PixabayImage[]) => void;
+  clearGallery: () => void;
+  showLoader: () => void;
+  hideLoader: () => void;
+  showLoadMoreButton: () => void;
+  hideLoadMoreButton: () => void;
+  showToast: (text: string) => void;
+};
 
-type RenderElements = {};
+type RenderElements = {
+  gallery: HTMLUListElement;
+  loader: HTMLParagraphElement;
+  loadMoreButton: HTMLButtonElement;
+};
 
 export function initRender(elements: RenderElements): RenderAPI {
   const { gallery, loader, loadMoreButton } = elements;
@@ -20,7 +32,7 @@ export function initRender(elements: RenderElements): RenderAPI {
     captionDelay: 250,
   });
 
-  const createGallery = (images) => {
+  const createGallery = (images: PixabayImage[]): void => {
     const galleryItems = images
       .map(
         (image) => `
@@ -41,23 +53,23 @@ export function initRender(elements: RenderElements): RenderAPI {
     lightbox.refresh();
   };
 
-  const clearGallery = () => {
+  const clearGallery = (): void => {
     gallery.innerHTML = "";
   };
 
-  const showLoader = () => {
+  const showLoader = (): void => {
     loader.style.display = "block";
   };
 
-  const hideLoader = () => {
+  const hideLoader = (): void => {
     loader.style.display = "none";
   };
 
-  const showLoadMoreButton = () => {
+  const showLoadMoreButton = (): void => {
     loadMoreButton.style.display = "block";
   };
 
-  const hideLoadMoreButton = () => {
+  const hideLoadMoreButton = (): void => {
     loadMoreButton.style.display = "none";
   };
 
